@@ -23,7 +23,7 @@ spec:
         tag: alpine
     spec:
       containers:
-      - image: {{ .Values.image.name }}.{{ .Values.image.tag }}
+      - image: {{ .Values.image.name }}:{{ .Values.image.tag }}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         name: nginx-alpine
         resources:
