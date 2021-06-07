@@ -42,7 +42,7 @@ def index():
 def post(post_id):
     post = get_post(post_id)
     if post is None:
-      app.logger.info('No article with the following id: %s', post_id)
+      app.logger.error('No article with the following id: %s', post_id)
       return render_template('404.html'), 404
     else:
       app.logger.info('Article "%s" retrieved', post['title'])
@@ -96,21 +96,13 @@ def incrementConnectionCount():
     db_connection_count += 1
 
 def initLogger():
-    logger = logging.getLogger()
-    logger.setLevel(logging.DEBUG)
-    formatter = logging.Formatter('%(levelname)s:%(name)s:%(asctime)s, %(message)s', '%m/%d/%Y, %H:%M:%S')
-    
-    h1 = logging.StreamHandler(sys.stdout)
-    h1.setLevel(logging.DEBUG)
-    # create formatter
-    h1.setFormatter(formatter)
-    logger.addHandler (h1)
-
-    h2 = logging.StreamHandler(sys.stderr)
-    h2.setLevel(logging.DEBUG)
-    # create formatter
-    h2.setFormatter(formatter)
-    logger.addHandler (h2)
+    handler_stdout = logging.StreamHandler(sys.stdout)
+    handler_stderr = logging.StreamHandler(sys.stderr)
+    logging.basicConfig(
+        level=logging.DEBUG,
+        handlers=[handler_stdout, handler_stderr],
+        format='%(levelname)s:%(name)s:%(asctime)s, %(message)s',
+        datefmt='%m/%d/%Y, %H:%M:%S')
 
 # start the application on port 3111
 if __name__ == "__main__":
