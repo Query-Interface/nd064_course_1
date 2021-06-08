@@ -1,0 +1,9 @@
+apiVersion: v1
+name: techtrends 
+description: techtrends project for udacity cloud native nanodegree
+keywords:
+- techtrends
+version: 1.0.0
+maintainers:
+- name: Arnaud Develay
+  email: develayfr@xyz.com
