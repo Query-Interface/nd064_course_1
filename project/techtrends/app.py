@@ -95,6 +95,11 @@ def incrementConnectionCount():
     global db_connection_count
     db_connection_count += 1
 
+@app.errorhandler(404)
+def resource_not_found(e):
+    app.logger.error('Page not found - 404')
+    return 'Page not found - 404', 404
+
 def initLogger():
     handler_stdout = logging.StreamHandler(sys.stdout)
     handler_stderr = logging.StreamHandler(sys.stderr)
@@ -108,5 +113,5 @@ def initLogger():
 if __name__ == "__main__":
    # configure logging
    initLogger()
-   # start flask appl
+   # start flask app
    app.run(host='0.0.0.0', port='3111')
